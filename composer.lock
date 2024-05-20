@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "99553d25dae60e3fcbd1828766532655",
+    "content-hash": "94f4ae2ae2cc93c8a99f7c090f02c74d",
     "packages": [
         {
             "name": "graham-campbell/guzzle-factory",
@@ -397,6 +397,50 @@
             "time": "2023-12-03T20:05:35+00:00"
         },
         {
+            "name": "mnib-dev/spatie-dropbox-api-refreshable-token",
+            "version": "v0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mynameisbogdan/spatie-dropbox-api-refreshable-token.git",
+                "reference": "8e5054ef717a2fac311b4991dcb7665c2ec3ef6a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mynameisbogdan/spatie-dropbox-api-refreshable-token/zipball/8e5054ef717a2fac311b4991dcb7665c2ec3ef6a",
+                "reference": "8e5054ef717a2fac311b4991dcb7665c2ec3ef6a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^7.5",
+                "php": "^7.3 || ^8.0.2",
+                "spatie/dropbox-api": "^1.21"
+            },
+            "require-dev": {
+                "mnib-dev/coding-standard": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MNIB\\SpatieDropboxApiRefreshableToken\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Generate access token from refresh token for spatie/dropbox-api",
+            "keywords": [
+                "Dropbox API",
+                "Spatie Refreshable Token"
+            ],
+            "support": {
+                "issues": "https://github.com/mynameisbogdan/spatie-dropbox-api-refreshable-token/issues",
+                "source": "https://github.com/mynameisbogdan/spatie-dropbox-api-refreshable-token/tree/v0.1"
+            },
+            "time": "2022-11-24T14:56:25+00:00"
+        },
+        {
             "name": "psr/http-client",
             "version": "1.0.3",
             "source": {
@@ -748,7 +792,9 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-mbstring": "*"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }

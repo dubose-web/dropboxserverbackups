@@ -1,47 +1,30 @@
 <?php
 
+use App\CliInput;
+use App\DropboxClientFactory;
+use Spatie\Dropbox\Exceptions\BadRequest;
+
 require __DIR__ . '/vendor/autoload.php';
 
-$args = [];
 
-foreach ($argv as $arg) {
-    $hasDashes = mb_strpos($arg, '--') === 0;
+/**
+ * Gather Requirements
+ */
 
-    if (!$hasDashes) {
-        continue;
-    }
+$cliInput = new CliInput($argv);
 
-    $argParts = explode('=', $arg);
+$dropboxBackupDirName = $cliInput->getArg('dropboxBackupDirName');
 
-    $key = explode('-', $argParts[0])[2] ?? null;
-    $val = $argParts[1] ?? null;
+$date = $cliInput->getArg('date');
 
-    if ($key === null || $val === null || $key === '' || $val === '') {
-        continue;
-    }
+$dropboxClientFactory = new DropboxClientFactory($cliInput);
 
-    $args[$key] = $val;
-}
+$dropboxClient = $dropboxClientFactory->create();
 
-$dropboxToken = $args['dropboxToken'] ?? null;
 
-if ($dropboxToken === null) {
-    throw new \Exception('--dropboxToken is required');
-}
-
-$dropboxBackDirName = $args['dropboxBackDirName'] ?? null;
-
-if ($dropboxBackDirName === null) {
-    throw new \Exception('--dropboxBackDirName is required');
-}
-
-$date = $args['date'] ?? null;
-
-if ($date === null) {
-    throw new \Exception('--date is required');
-}
-
-$client = new Spatie\Dropbox\Client($dropboxToken);
+/**
+ * Run
+ */
 
 $dir = new DirectoryIterator(__DIR__ . '/backups/' . $date);
 
@@ -53,14 +36,12 @@ try {
 
         $file = fopen($fileInfo->getPathname(), 'r');
 
-        $client->upload(
-            '/' . $dropboxBackDirName . '/' . $date . '/' . $fileInfo->getFilename(),
+        $dropboxClient->upload(
+            '/' . $dropboxBackupDirName . '/' . $date . '/' . $fileInfo->getFilename(),
             $file
         );
-
-        sleep(1);
     }
-} catch (\Spatie\Dropbox\Exceptions\BadRequest $e) {
+} catch (BadRequest $e) {
     echo (string) $e->response->getBody();
     throw $e;
 }

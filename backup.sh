@@ -74,7 +74,7 @@ docker run --rm \
     -v ${PWD}:/app \
     -w /app \
     --security-opt seccomp=unconfined \
-    php:8.3.7-cli bash -c "php upload.php --dropboxToken="${DROPBOX_TOKEN}" --dropboxBackupDirName=${DROPBOX_BACKUP_DIR_NAME} --date=${date}";
+    php:8.3.7-cli bash -c "php upload.php --dropboxRefreshToken="${DROPBOX_REFRESH_TOKEN}" --dropboxAppKey="${DROPBOX_APP_KEY}" --dropboxAppSecret="${DROPBOX_APP_SECRET}" --dropboxBackupDirName="${DROPBOX_BACKUP_DIR_NAME}" --date=${date}";
 
 
 

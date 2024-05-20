@@ -1,0 +1,37 @@
+{
+    "name": "mnib-dev/spatie-dropbox-api-refreshable-token",
+    "description": "Generate access token from refresh token for spatie/dropbox-api",
+    "keywords": [
+        "Dropbox API",
+        "Spatie Refreshable Token"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^7.3 || ^8.0.2",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.5",
+        "spatie/dropbox-api": "^1.21"
+    },
+    "require-dev": {
+        "mnib-dev/coding-standard": "dev-master"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "MNIB\\SpatieDropboxApiRefreshableToken\\": "src/"
+        }
+    },
+    "scripts": {
+        "cs:check": "vendor/bin/php-cs-fixer fix --dry-run --ansi -vvv --show-progress=dots --diff",
+        "cs:fix": "vendor/bin/php-cs-fixer fix --ansi -vvv --show-progress=dots --diff"
+    }
+}

@@ -17,7 +17,7 @@ DIRS=(
 
 # Prefix DB env credentials with db name like MYDB_USER
 DATABASES=(
-    'TODO',
+    'TODO'
 );
 
 TODO_DB_CONTAINER_ID="TODO";

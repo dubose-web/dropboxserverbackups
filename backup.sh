@@ -2,14 +2,16 @@
 
 set -e;
 
-source env.sh
-
 # CD Here
-cd "$(dirname "$0")";
+SCRIPT_DIR=$(dirname "$0");
+cd "${SCRIPT_DIR}";
 
 ################################################################################
 # Vars
 ################################################################################
+
+# Get env file
+source env.sh;
 
 # Set the current date
 date=$(date +"%Y-%m-%d__%H-%M-%S");
@@ -71,7 +73,7 @@ done;
 ################################################################################
 
 docker run --rm \
-    -v ${PWD}:/app \
+    -v ${SCRIPT_DIR}:/app \
     -w /app \
     --security-opt seccomp=unconfined \
     php:8.3.7-cli bash -c "php upload.php --dropboxRefreshToken="${DROPBOX_REFRESH_TOKEN}" --dropboxAppKey="${DROPBOX_APP_KEY}" --dropboxAppSecret="${DROPBOX_APP_SECRET}" --dropboxBackupDirName="${DROPBOX_BACKUP_DIR_NAME}" --date=${date}";

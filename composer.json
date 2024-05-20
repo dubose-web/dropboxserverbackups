@@ -1,0 +1,6 @@
+{
+    "require": {
+        "ext-mbstring": "*",
+        "spatie/dropbox-api": "^1.22"
+    }
+}

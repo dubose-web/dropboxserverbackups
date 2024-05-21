@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e;
-
 # CD Here
 SCRIPT_DIR=$(dirname "$0");
 cd "${SCRIPT_DIR}";
@@ -71,6 +69,12 @@ done;
 ################################################################################
 # Upload to Dropbox
 ################################################################################
+
+# While we might get erroneous errors from the tar process (file changed as we
+# read it, grr), we DO need to stop on error from the upload process so that an
+# `&&` bash command that may ping a healthcheck won't get hit when something has
+# gone wrong
+set -e;
 
 docker run --rm \
     -v ${SCRIPT_DIR}:/app \

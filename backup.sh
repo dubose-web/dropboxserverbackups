@@ -45,19 +45,21 @@ done;
 ################################################################################
 
 # Iterate through specified databases and back up
-for dbName in "${DATABASES[@]}"; do
-    containerIdVarName="${dbName}_DB_CONTAINER_ID";
-    mysqlUserVarName="${dbName}_MYSQL_USER";
-    mysqlPasswordVarName="${dbName}_MYSQL_PASSWORD";
+for dbConfig in "${DATABASES[@]}"; do
+    containerIdVarName="${dbConfig}_DB_CONTAINER_ID";
+    mysqlDbNameVarName="${dbConfig}_MYSQL_DB_NAME";
+    mysqlUserVarName="${dbConfig}_MYSQL_USER";
+    mysqlPasswordVarName="${dbConfig}_MYSQL_PASSWORD";
 
     containerId="${!containerIdVarName}";
+    mysqlDbName="${!mysqlDbNameVarName}";
     mysqlUser="${!mysqlUserVarName}";
     mysqlPassword="${!mysqlPasswordVarName}";
 
-    /usr/bin/docker exec --user root "${containerId}" bash -c "mysqldump -u"${mysqlUser}" -p"${mysqlPassword}" "${dbName}" > /"${dbName}".sql";
-    /usr/bin/docker cp "${containerId}":/"${dbName}".sql backups/${date}/"${dbName}".sql;
-    /usr/bin/docker exec --user root "${containerId}" bash -c "rm /"${dbName}".sql";
-    gzip -9 backups/${date}/"${dbName}".sql;
+    /usr/bin/docker exec --user root "${containerId}" bash -c "mysqldump -u"${mysqlUser}" -p"${mysqlPassword}" "${mysqlDbName}" > /"${dbConfig}".sql";
+    /usr/bin/docker cp "${containerId}":/"${dbConfig}".sql backups/${date}/"${dbConfig}".sql;
+    /usr/bin/docker exec --user root "${containerId}" bash -c "rm /"${dbConfig}".sql";
+    gzip -9 backups/${date}/"${dbConfig}".sql;
 done;
 
 
